@@ -49,6 +49,7 @@ function htmlToBlocks (html, options) {
           if (el.tagName === 'IMG') {
             return block({
                 children: [],
+                _type: "image",
                 _sanityAsset: `image@${el
                   .getAttribute('src')
                   .replace(/^\/\//, 'https://')}`
@@ -62,6 +63,7 @@ function htmlToBlocks (html, options) {
             el.childNodes[0].tagName.toLowerCase() === 'img'
           ) {
             return block({
+                _type: "image",
                 _sanityAsset: `image@${el.childNodes[0]
                   .getAttribute('src')
                   .replace(/^\/\//, 'https://')}`
