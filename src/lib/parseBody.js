@@ -37,10 +37,11 @@ function htmlToBlocks (html, options) {
           if(!text) {
             return undefined
           }
+          // Use code key to work with code-input plugin
           return block({
             children: [],
             _type: 'code',
-            text: text
+            code: text
           })
         }
       },
