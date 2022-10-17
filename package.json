@@ -1,23 +1,26 @@
 {
   "name": "wordpress-to-sanity",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "version": "1.1.0",
+  "description": "A migration and import tool to convert WordPress export files into Sanity import files.",
+  "main": "./src/index.js",
   "scripts": {
+    "migrate": "node ./src/index",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Mario Giancini <mario.giancini@gmail.com>",
+  "contributors": [
+    "Knut Melvær <knut.melvaer@gmail.com>"
+  ],
   "license": "ISC",
   "dependencies": {
-    "@sanity/block-tools": "^1.149.4",
-    "@sanity/client": "^1.149.7",
-    "@sanity/import": "^1.149.9",
-    "@sanity/schema": "^1.149.4",
-    "cheerio": "^1.0.0-rc.3",
-    "jsdom": "^16.2.2",
-    "sanitize-html": "^1.22.1",
+    "@sanity/block-tools": "^2.33.2",
+    "@sanity/client": "^3.4.1",
+    "@sanity/import": "^2.33.2",
+    "@sanity/schema": "^2.33.2",
+    "jsdom": "^20.0.1",
+    "sanitize-html": "^2.7.2",
     "slugify": "^1.4.0",
-    "xml-stream": "^0.4.5"
+    "xml2js": "^0.4.23"
   },
   "devDependencies": {
     "eslint": "^6.8.0",

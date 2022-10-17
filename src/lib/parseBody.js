@@ -39,7 +39,6 @@ function htmlToBlocks (html, options) {
           }
           // Use code key to work with code-input plugin
           return block({
-            children: [],
             _type: 'code',
             code: text
           })
@@ -49,7 +48,6 @@ function htmlToBlocks (html, options) {
         deserialize (el, next, block) {
           if (el.tagName === 'IMG') {
             return block({
-                children: [],
                 _type: "image",
                 _sanityAsset: `image@${el
                   .getAttribute('src')
