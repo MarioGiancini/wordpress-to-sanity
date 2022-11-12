@@ -1,6 +1,7 @@
 /* eslint-disable id-length, max-depth, max-statements, no-console, no-nested-ternary, no-process-env, no-sync, no-process-exit, no-warning-comments */
 const fs = require('fs')
 const path = require('path')
+const config = require('../config.json')
 
 const parseDate = require('./lib/parseDate')
 const parseBody = require('./lib/parseBody')
@@ -17,9 +18,9 @@ const dateRun = now.toISOString().split('.')[0].replace(/:|T/gi, '-')
 const importsDir = path.resolve(__dirname, '../imports/')
 const nlJsonFile = `${importsDir}/sanity-import-${dateRun}.nljson`
 
-// TODO: Make these configurable
-const allowedPostTypes = ['attachment', 'post', 'page']
-const usePostLinkForSlug = true
+// Configurable settings
+const allowedPostTypes = config.postTypes
+const usePostLinkForSlug = config.usePostLinkForSlug
 
 const xmlExportDir = fs.readdirSync(exportDir, (err, files) => {
   if (err) {
@@ -234,4 +235,4 @@ console.log(`\r> Finished in ${((new Date).getTime() - now.getTime())/1000} seco
 console.log(`\n> ${documentCounter.length} document files appended to import file: ${nlJsonFile}\n`)
 
 
-
+console.log('ALLOWED POST TYPES:', allowedPostTypes)

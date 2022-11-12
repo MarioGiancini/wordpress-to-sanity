@@ -1,0 +1,4 @@
+{
+  "postTypes": ["attachment", "post", "page"],
+  "usePostLinkForSlug": true
+}
