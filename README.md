@@ -8,14 +8,14 @@ This is an evolved example of how to migrate content from a Wordpress website to
 
 1. `git clone` this repo.
 2. Add your WordPress export xml file(s) to the `/exports` directory.
-3. Copy `config.example.json` to `config.json` and set the allowed `postTypes` array.
+3. Copy `config.example.json` to `config.json` and set the allowed `postTypes` array, as well as any other post schema fields you'd like to customize.
 4. Run `npm run migrate` to run the `/src/index.js` migration script.
 5. Each post type will be parsed and each post will be added as a separate json file within the `/imports` directory.
 6. A new line json file will be compiled from all the parsed post types and added to the `/imports` directory root named with the current datetime like `sanity-import-YYYY-MM-DD-HH-MM-SS.ndjson`.
 7. Try to import the file with `sanity dataset import [your-sanity-import-file]` in your Sanity project folder.
 
 ## How It Works
-For most blogs and simplier websites created with WordPress, this tool should cover a full migration including post categories and tags. For more advanced WordPress websites, like those that use custom post types or e-commerce plugins like WooCommerce, further customization and testing will be required
+For most blogs and simplier websites created with WordPress, this tool should cover a full migration including post categories and tags. For more advanced WordPress websites, like those that use custom post types or e-commerce plugins like WooCommerce, further customization and testing will be required.
 
 
 - This migration script in `/src/index.js` reads the wordpress export XML files you supplied in the `exports` directory. You can add more than one for each post type if need be, or just use the default WordPress export all. 
@@ -27,3 +27,7 @@ For most blogs and simplier websites created with WordPress, this tool should co
 - The HTML is sanitized, but _most_ HTML tags are allowed (check `/lib/sanitizeHTML.js`)
   - This also includes compatibility with Portable Text.
 - The mapped Sanity document files are created as separate json files, each within a directory organized by post type. The `nljson` import file is compiled from all the individual document files created, with soft linking for import compatibility.
+
+## Future Improvements
+- Importing your Sanity project schema to map to post fields.
+- Arguments to clear out imports directory when running migrate script.

@@ -1,6 +1,6 @@
 {
   "name": "wordpress-to-sanity",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "A migration and import tool to convert WordPress export files into Sanity import files.",
   "main": "./src/index.js",
   "scripts": {

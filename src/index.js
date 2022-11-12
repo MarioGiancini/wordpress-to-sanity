@@ -179,7 +179,6 @@ for (const [index, xmlExportFile] of xmlExportFiles.entries()) {
           slug: {
             current: usePostLinkForSlug && !draftStatus ? postSlug : slugify(title, { lower: true, strict: true })
           },
-          description,
         }
 
         // Set the post's body field based on the configuration
@@ -190,6 +189,11 @@ for (const [index, xmlExportFile] of xmlExportFiles.entries()) {
           post.categories = itemCategories
           post.tags = itemTags
           post.author = utils.createReferenceObject(postAuthor, false)
+
+          // Add any excerpt if we have excerpts set for our post schema
+          if (config.postExcerptField) {
+            post[config.postExcerptField] = item['excerpt:encoded']
+          }
         }
 
         const publishedAt = parseDate(item)
