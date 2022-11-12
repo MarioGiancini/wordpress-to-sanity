@@ -156,14 +156,14 @@ for (const [index, xmlExportFile] of xmlExportFiles.entries()) {
         // Relate the current post author
         const postAuthor = authors.find(user => user.slug.current === item['dc:creator'])
         
-        let mainImage = null 
+        let postImage = null 
         // find in postmeta array meta_key = "_thumbnail_id" 
         const wpPostMeta = Array.isArray(item['wp:postmeta']) ? item['wp:postmeta'] : [item['wp:postmeta']]
         const thumbnailPostMeta = wpPostMeta.find(postMeta => postMeta['wp:meta_key'] === '_thumbnail_id')
 
         if (thumbnailPostMeta !== undefined) {
           // Attachments may come before or after the posts that reference them, so just add id for now
-          mainImage = thumbnailPostMeta['wp:meta_value']
+          postImage = thumbnailPostMeta['wp:meta_value']
         }
 
         // If the post is in a draft status, let's import it as such using Sanity's "drafts." _id prefix.
@@ -180,8 +180,10 @@ for (const [index, xmlExportFile] of xmlExportFiles.entries()) {
             current: usePostLinkForSlug && !draftStatus ? postSlug : slugify(title, { lower: true, strict: true })
           },
           description,
-          body: parseBody(item['content:encoded']),
         }
+
+        // Set the post's body field based on the configuration
+        post[config.postBodyField] = parseBody(item['content:encoded'])
 
         // Only posts need categories, tags, or an author
         if (postType === 'post') {
@@ -196,8 +198,8 @@ for (const [index, xmlExportFile] of xmlExportFiles.entries()) {
           post.publishedAt = publishedAt
         }
 
-        if (mainImage) {
-          post.mainImage = mainImage
+        if (postImage) {
+          post[config.postImageField] = postImage
         }
 
         // add the post/page to the array to create document files for
@@ -213,9 +215,9 @@ for (const [index, xmlExportFile] of xmlExportFiles.entries()) {
   // Create the json file for each post here
   for (const post of posts) {
     // Now that full xml file is parse, relate post and page featured images to attachments
-    if (attachments.length && post.mainImage) {
-      const postAttachment = attachments.find(attachment => attachment.id === post.mainImage)
-      post.mainImage = {
+    if (attachments.length && post[config.postImageField]) {
+      const postAttachment = attachments.find(attachment => attachment.id === post[config.postImageField])
+      post[config.postImageField] = {
         _type: 'image',
         _sanityAsset: `image@${postAttachment.src}`
       }
@@ -234,5 +236,3 @@ utils.walkDirRecursively(importsDir, nlJsonFile, documentCounter)
 console.log(`\r> Finished in ${((new Date).getTime() - now.getTime())/1000} seconds!`)
 console.log(`\n> ${documentCounter.length} document files appended to import file: ${nlJsonFile}\n`)
 
-
-console.log('ALLOWED POST TYPES:', allowedPostTypes)

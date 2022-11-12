@@ -1,4 +1,6 @@
 {
+  "postBodyField": "content",
+  "postImageField": "mainImage",
   "postTypes": ["attachment", "post", "page"],
   "usePostLinkForSlug": true
 }
