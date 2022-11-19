@@ -112,6 +112,7 @@ for (const [index, xmlExportFile] of xmlExportFiles.entries()) {
             const postCategory = {
               _type: 'category',
               _id: utils.createDocumentId('category', taxonomy.$.nicename),
+              slug: taxonomy.$.nicename,
               title: taxonomy._
             }
   
@@ -134,6 +135,7 @@ for (const [index, xmlExportFile] of xmlExportFiles.entries()) {
             const tag = {
               _type: 'tag',
               _id: utils.createDocumentId('tag', taxonomy.$.nicename),
+              slug: taxonomy.$.nicename,
               title: taxonomy._
             }
   
